@@ -8,27 +8,32 @@ const game = {
   prevGuesses: [],
   play: function() {
     // this.smallestNum = parseInt(prompt('Enter the smallest number:'));
-    this.smallestNum = parseInt(document.getElementById('small').value);  // GOOD
+    this.smallestNum = parseInt(document.getElementById('small').value);  
     // this.biggestNum = parseInt(prompt('Enter the biggest number:'));
-    this.biggestNum = parseInt(document.getElementById('big').value);  // GOOD
+    this.biggestNum = parseInt(document.getElementById('big').value);  
     if (this.secretNum === null) {
-      this.secretNum = Math.floor(Math.random() * (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;  // GOOD
+      this.secretNum = Math.floor(Math.random() * (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;  
     }
     // let newGuess = null;
-    newGuess = this.getGuess();  // GOOD
+    newGuess = this.getGuess();  
+    if (newGuess !== this.secretNum) {
+      document.getElementById('guess').value = '';
+    }
     while (newGuess === 'error') {
       newGuess = this.getGuess();
     }
-    this.prevGuesses.push(newGuess);  // GOOD
-    this.render();  // GOOD
-    return;
+    this.prevGuesses.push(newGuess);  
+    this.render();  
+    if (newGuess === this.secretNum) {
+      return console.log('GAME COMPLETE');
+    }
   },
   render: function() {
     // let currentGuess = this.prevGuesses[this.prevGuesses.length - 1];
-    currentGuess = this.prevGuesses[this.prevGuesses.length - 1];  // GOOD
+    currentGuess = this.prevGuesses[this.prevGuesses.length - 1];  
     if (currentGuess === this.secretNum) {
       // alert(`Congrats! You guessed the number in ${this.prevGuesses.length} guesses!`);
-      document.getElementById('render').innerHTML = (`Congrats! You guessed the number in ${this.prevGuesses.length} guesses!`);  // GOOD
+      document.getElementById('render').innerHTML = (`Congrats! You guessed the number in ${this.prevGuesses.length} guesses!`);  
     } else if (currentGuess > this.secretNum) {
       // alert(` Your guess is too high
       // Previous guesses: ${this.prevGuesses.join(', ')}`);
@@ -48,7 +53,7 @@ const game = {
     if ((!guess && guess !== 0) || guess < game.smallestNum || guess > game.biggestNum) {
       // guess = parseInt(prompt(`Error. Please enter a guess between ${this.smallestNum} and ${this.biggestNum}:`));
       document.getElementById('render').innerHTML = `Error. Please enter a guess between ${this.smallestNum} and ${this.biggestNum}:`;
-      document.getElementById('guess').reset();
+      document.getElementById('guess').value = '';
       return 'error';
     } else {
       return guess;
@@ -65,6 +70,6 @@ const game = {
   }
 };
 document.getElementById('play').addEventListener('click', function() {
-    game.play();  // GOOD
+    game.play();  
   }
 );
