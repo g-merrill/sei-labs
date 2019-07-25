@@ -1,0 +1,19 @@
+.numInput {
+    border: solid 1px;
+    border-radius: 5px;
+  }
+  .button {
+    border: solid #000000 1px;
+    background: salmon;
+    color: #ffffff; 
+    border-radius: 10px;
+  }
+  .result {
+    border: solid 1px;
+    border-radius: 5px;
+    font-family: sans-serif;
+    line-height: 50px;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+  }
