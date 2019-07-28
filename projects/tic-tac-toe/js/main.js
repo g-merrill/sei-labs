@@ -17,6 +17,34 @@ let resetBtn = document.getElementById('reset');
 
 // event listeners
 resetBtn.addEventListener('click', resetBoard);
+
+// functions
+init();
+function init() {
+    board = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ];
+    // winner will be null, 1, 2, or 'tie'
+    winner = null;
+    // clear and assign event listeners to each tile by cycling through board array
+    board.forEach(function(colArr, colIdx) {
+        colArr.forEach(function(rowVal, rowIdx) {
+            let tile = document.getElementById(`c${colIdx}r${rowIdx}`);
+            tile.innerHTML = '';
+            tile.addEventListener('click', handleClick);
+        });
+    });
+    // need to set indicator to player 1
+    blinkerOne.style.visibility = 'visible';
+    whoseTurn.textContent = '1';
+    turnMsg.style.visibility = 'visible';
+    // remember that player 1 started for this game
+    lastStarter = 1;
+    // turn will be turns 1-9, clicks will not do anything > 9
+    turn = 1;
+}
 function handleClick(evt) {
     // if board is full, return
     if (turn > 9 || (turn > 8 && lastStarter === 2)) {
@@ -39,18 +67,19 @@ function handleClick(evt) {
     turn += 1;
 }
 function render(tile) {
-    // update board array based on tile clicked
-    let colIdx = tile.id.charAt(1);
-    let rowIdx = tile.id.charAt(3);
-    board[colIdx][rowIdx] = turn % 2 === 1 ? 1 : 2;
     // change all prev clicked p text to 50% opacity
     let clickedTiles = document.querySelectorAll('#clicked');
     for (let i = 0; i < clickedTiles.length; i++) {
         clickedTiles[i].style.opacity = 0.5;
     }
-    // display X or O to tile, depending on board array value
+    // update board array based on tile clicked
+    let colIdx = tile.id.charAt(1);
+    let rowIdx = tile.id.charAt(3);
+    board[colIdx][rowIdx] = turn % 2 === 1 ? 1 : 2;
+    // write X or O to tile, depending on board array value
     tile.innerHTML = `<p id='clicked'>${board[colIdx][rowIdx] % 2 === 1 ? 'X' : 'O'}</p>`;
-    // check if winner, if so, display winner message for that player and return, winner function will also check if tie, and if so, display tie message and return
+    // check if winner, if so, display winner message for that player and return
+    // checkWinner function will also check if tie, and if so, display tie message and return
     checkWinner();
     switch (winner) {
         case 1:
@@ -123,42 +152,11 @@ function checkWinner() {
         return;
     }
 }
-// functions
-init();
-function init() {
-    board = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ];
-    // winner will be null, 1, 2, or 'tie'
-    winner = null;
-    // assign divs to appropriate board array values
-    board.forEach(function(colArr, colIdx) {
-        colArr.forEach(function(rowVal, rowIdx) {
-            let tile = document.getElementById(`c${colIdx}r${rowIdx}`);
-            tile.addEventListener('click', handleClick);
-        });
-    });
-    // need to set indicator to player 1
-    blinkerOne.style.visibility = 'visible';
-    whoseTurn.textContent = '1';
-    turnMsg.style.visibility = 'visible';
-    // remember that player 1 started for this game
-    lastStarter = 1;
-    // turn will be turns 1-9, clicks will not do anything > 9
-    turn = 1;
-}
 function resetBoard() {
+    // utilizing all the resets from init function, but keeping lastStarter value from previous games
     let storeLastStarter = lastStarter;
     init();
     lastStarter = storeLastStarter;
-    board.forEach(function(colArr, colIdx) {
-        colArr.forEach(function(rowVal, rowIdx) {
-            let tile = document.getElementById(`c${colIdx}r${rowIdx}`);
-            tile.innerHTML = '';
-        });
-    });
     winMsgOne.style.visibility = 'hidden';
     winMsgTwo.style.visibility = 'hidden';
     tieMsg.style.visibility = 'hidden';
@@ -166,8 +164,8 @@ function resetBoard() {
         blinkerOne.style.visibility = 'hidden';
         blinkerTwo.style.visibility = 'visible';
         whoseTurn.textContent = '2';
-        lastStarter = 2;
         turn = 0;
+        lastStarter = 2;
     } else {
         blinkerOne.style.visibility = 'visible';
         blinkerTwo.style.visibility = 'hidden';
