@@ -2,11 +2,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size: 14px;
 }
 body {
     margin: 0;
     font-family: Helvetica;
-    height: 100vh;
     background-color: rgb(174, 63, 49);
     color: #fff;
     display: grid;
@@ -19,6 +19,7 @@ body {
     ;
     position: relative;
 }
+
 nav {
     grid-area: "nav";
     background-color: rgb(195, 70, 54);
@@ -27,50 +28,59 @@ nav {
     align-items: center;
     padding: 25px;
 }
+/* needs sizing fixing */
 .smashing-icon {
     padding-top: 12px;
-    width: 50px;
-    height: 71px;
+    width: 15%;
 }
+/* needs sizing fixing */
 .menu {
     border: 3px solid #fff;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     width: 30%;
-    height: 80%;
+    padding: 2.5% 0;
     border-radius: 10px;
 }
+
 header {
     grid-area: "hdr";
     text-align: center;
     padding-top: 40px;
 }
 header>span {
-    font-size: 24px;
+    font-size: 160%;
     font-weight: 600;
     color: #000;
     background-color: #fff;
     line-height: 1.5;
     padding: 10px;
 }
+
 .main-content {
     grid-area: "content";
     display: flex;
     flex-direction: column;
 }
+
 .main-content>div {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
-.main-content>div:nth-child(2n+2) {
+.main-content>div:nth-child(2) {
     background-color: rgb(195, 70, 54);
 }
+.main-content>div:nth-child(3) {
+    background-color: rgb(164, 59, 45);
+}
+
 .main-content>div>div {
     margin: 5px;
     padding: 0 5%;
 }
+
 .author {
     display: flex;
 }
@@ -87,6 +97,7 @@ header>span {
     font-weight: 100;
     font-style: italic;
 }
+
 .article-title {
     font-weight: 500;
     font-size: 180%;
@@ -97,11 +108,18 @@ header>span {
 .fa-comment-alt {
     padding: 0 5px;
 }
+ /*  */
 .hashtags {
-    padding: 30px 10px 0;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-basis: auto;
+    height: 80%; */
+    /* align-items: flex-start; */
 }
 .hashtags>p {
     position: relative;
+    padding: 0 20px;
 }
 .hashtag {
     color: #000;
@@ -110,13 +128,16 @@ header>span {
     font-size: 60%;
     position: absolute;
     top: 0;
+    right: 5px;
 }
+/*  */
 .article-link {
-    padding: 30px 10px;
+    padding: 0 10px;
 }
 .fa-long-arrow-alt-right {
     color: #fff;
 }
+/* needs css sticky */
 .back-to-top {
     position: absolute;
     right: 10px;
@@ -131,4 +152,25 @@ header>span {
 }
 .fa-chevron-up {
     color: #fff;
+}
+/* needs css sticky */
+@media (min-width: 768px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-rows: 160px 160px 1fr;
+        grid-template-areas: 
+            "nav"
+            "hdr"
+            "content"
+        ;
+        height: 100vh;
+    }
+    .main-content {
+        grid-area: "content";
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    /* need to figure out how to split header background color */
+    /* also need to add nav items */
 }
