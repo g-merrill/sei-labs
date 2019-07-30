@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    font-family: Helvetica;
+    height: 100vh;
+    background-color: rgb(174, 63, 49);
+    color: #fff;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 160px 1fr;
+    grid-template-areas: 
+        "nav"
+        "hdr"
+        "content"
+    ;
+    position: relative;
+}
+nav {
+    grid-area: "nav";
+    background-color: rgb(195, 70, 54);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+}
+.smashing-icon {
+    padding-top: 12px;
+    width: 50px;
+    height: 71px;
+}
+.menu {
+    border: 3px solid #fff;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 30%;
+    height: 80%;
+    border-radius: 10px;
+}
+header {
+    grid-area: "hdr";
+    text-align: center;
+    padding-top: 40px;
+}
+header>span {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+    background-color: #fff;
+    line-height: 1.5;
+    padding: 10px;
+}
+.main-content {
+    grid-area: "content";
+    display: flex;
+    flex-direction: column;
+}
+.main-content>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.main-content>div:nth-child(2n+2) {
+    background-color: rgb(195, 70, 54);
+}
+.main-content>div>div {
+    margin: 5px;
+    padding: 0 5%;
+}
+.author {
+    display: flex;
+}
+.author>img {
+    transform: scale(0.8) rotateZ(calc(-11 * 1deg));
+    border: 5px solid #fff;
+    border-radius: 10px;
+}
+.author>p {
+    padding: 25px 0 0 10px;
+    font-weight: bold;
+}
+.wrote {
+    font-weight: 100;
+    font-style: italic;
+}
+.article-title {
+    font-weight: 500;
+    font-size: 180%;
+}
+.article-main>p {
+    padding: 10px 5px;
+}
+.fa-comment-alt {
+    padding: 0 5px;
+}
+.hashtags {
+    padding: 30px 10px 0;
+}
+.hashtags>p {
+    position: relative;
+}
+.hashtag {
+    color: #000;
+}
+.hashtag-number {
+    font-size: 60%;
+    position: absolute;
+    top: 0;
+}
+.article-link {
+    padding: 30px 10px;
+}
+.fa-long-arrow-alt-right {
+    color: #fff;
+}
+.back-to-top {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    height: 30px;
+    width: 30px;
+    background-color: #000;
+    opacity: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fa-chevron-up {
+    color: #fff;
+}
