@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     font-size: 14px;
+    text-decoration: none;
 }
 body {
     margin: 0;
@@ -17,7 +18,6 @@ body {
         "hdr"
         "content"
     ;
-    position: relative;
 }
 
 nav {
@@ -28,26 +28,62 @@ nav {
     align-items: center;
     padding: 25px;
 }
-/* needs sizing fixing */
-.smashing-icon {
+nav .smashing-icon {
     padding-top: 12px;
-    width: 15%;
+    width: 53px;
 }
-/* needs sizing fixing */
-.menu {
+nav .icon-bar {
+    display: flex;
+    flex-shrink: 5;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    visibility: hidden;
+}
+nav .icon-bar-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+nav .icon-bar-items:hover {
+    color: rgb(195, 70, 54);
+    background-color: #fff;
+    transition: 0.3s ease;
+}
+nav .icon-bar-items>i {
+    transform: scale(0.8);
+}
+nav .icon-bar-items>p {
+    font-size: calc(18px + 0.25vw);
+    padding: 10px 0 0;
+}
+nav .menu {
     border: 3px solid #fff;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    width: 30%;
-    padding: 2.5% 0;
+    padding: 2.5%;
     border-radius: 10px;
+}
+nav .menu:hover {
+    color: rgb(195, 70, 54);
+    background-color: #fff;
+    transition: 0.3s ease;
+}
+nav .menu>p {
+    font-size: calc(16px + 0.25vw);
+    padding: 0 0 0 10px;
 }
 
 header {
     grid-area: "hdr";
     text-align: center;
     padding-top: 40px;
+    position: relative;
 }
 header>span {
     font-size: 160%;
@@ -57,37 +93,72 @@ header>span {
     line-height: 1.5;
     padding: 10px;
 }
+header .color-btn {
+    visibility: hidden;
+    position: absolute;
+    right: 3%;
+    top: 35%;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: inherit;
+    border: none;
+}
+
+header .fa-adjust {
+    transform: rotateZ(calc(180 * 1deg));
+    transition: 0.3s ease;
+}
+header .fa-adjust:hover {
+    transform: rotateZ(calc(0 * 1deg));
+    transition: 0.3s ease;
+}
+header .seriously {
+    border: 1px solid #fff;
+    border-radius: 12px;
+    margin: 0 0 0 10px;
+    padding: 10px;
+    font-size: calc(14px + 0.25vw);
+}
+header .seriously:hover {
+    color: rgb(174, 63, 49);
+    background-color: #fff;
+    transition: 0.3s ease;
+}
 
 .main-content {
     grid-area: "content";
     display: flex;
     flex-direction: column;
 }
-
-.main-content>div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.article-wrapper {
+    height: 450px;
+    position: relative;
 }
-.main-content>div:nth-child(2) {
+.article-wrapper:nth-child(2) {
     background-color: rgb(195, 70, 54);
 }
-.main-content>div:nth-child(3) {
+.article-wrapper:nth-child(3) {
     background-color: rgb(164, 59, 45);
 }
 
-.main-content>div>div {
-    margin: 5px;
+.article-wrapper>div {
     padding: 0 5%;
 }
 
 .author {
     display: flex;
+    margin: 50px 0 0;
 }
-.author>img {
+.author-photo {
     transform: scale(0.8) rotateZ(calc(-11 * 1deg));
     border: 5px solid #fff;
     border-radius: 10px;
+}
+.author-photo:hover {
+    transform: scale(1.0) rotateZ(calc(0 * 1deg));
+    transition: 0.3s ease;
 }
 .author>p {
     padding: 25px 0 0 10px;
@@ -98,28 +169,29 @@ header>span {
     font-style: italic;
 }
 
-.article-title {
-    font-weight: 500;
-    font-size: 180%;
+.article-main {
+    margin: 5px 0 0;
 }
-.article-main>p {
+.article-main h2 {
+    font-weight: bold;
+    font-size: 7vw;
+}
+.article-main h2>span {
     padding: 10px 5px;
+    font-weight: normal;
 }
 .fa-comment-alt {
     padding: 0 5px;
 }
- /*  */
+
 .hashtags {
-    padding: 0 10px;
     display: flex;
     flex-wrap: wrap;
-    /* flex-basis: auto;
-    height: 80%; */
-    /* align-items: flex-start; */
+    margin: 30px 0 0;
 }
-.hashtags>p {
+.hashtags p {
     position: relative;
-    padding: 0 20px;
+    padding: 10px 30px 10px 0;
 }
 .hashtag {
     color: #000;
@@ -127,50 +199,90 @@ header>span {
 .hashtag-number {
     font-size: 60%;
     position: absolute;
-    top: 0;
-    right: 5px;
+    top: 10px;
+    right: 15px;
 }
-/*  */
+
 .article-link {
-    padding: 0 10px;
+    position: absolute;
+    bottom: 30px;
+    left: 0;
 }
 .fa-long-arrow-alt-right {
     color: #fff;
 }
-/* needs css sticky */
+
 .back-to-top {
-    position: absolute;
-    right: 10px;
+    position: fixed;
+    right: 25px;
     bottom: 10px;
-    height: 30px;
-    width: 30px;
-    background-color: #000;
-    opacity: 0.5;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(100, 100, 100);
+    opacity: 0.25;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 7px;
+}
+.back-to-top:hover {
+    opacity: 0.6;
+    background-color: #000;
+    transition: 0.3s ease;
 }
 .fa-chevron-up {
     color: #fff;
 }
-/* needs css sticky */
+
 @media (min-width: 768px) {
     body {
         grid-template-columns: 1fr;
-        grid-template-rows: 160px 160px 1fr;
+        grid-template-rows: 100px 140px 1fr;
         grid-template-areas: 
             "nav"
             "hdr"
             "content"
         ;
-        height: 100vh;
     }
+
+    nav .icon-bar {
+        visibility: visible;
+    }
+    nav .menu {
+        padding: 1.5%;
+    }
+    nav .menu>p {
+        font-size: calc(16px + 0.25vw);
+    }
+
+    header>span {
+        font-size: calc(25px + 0.25vw);
+    }
+    header .color-btn {
+        visibility: visible;
+    }
+
     .main-content {
         grid-area: "content";
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
     }
-    /* need to figure out how to split header background color */
-    /* also need to add nav items */
+    .article-wrapper {
+        height: 650px;
+    }
+
+    .author>p {
+        font-size: calc(14px + 0.25vw);
+    }
+
+    .article-main h2 {
+        font-size: calc(30px + 0.25vw);
+        line-height: 1.5;
+    }
+
+    .article-link {
+        bottom: 50px;
+        left: 10px;
+    }
 }
