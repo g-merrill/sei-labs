@@ -551,9 +551,9 @@ function renderMine(id, tile) {
     smiley.setAttribute('src', 'images/smiley-loss.png');
     playerStatus = 'lost';
 
-    executeOrder66(id, tile);
+    executeOrder66(id);
 }
-function executeOrder66(id, tile) {
+function executeOrder66(id) {
     let top = [];
     for (let i = 0; i < offset; i++) {
         top.push(i);
@@ -581,13 +581,16 @@ function executeOrder66(id, tile) {
     let rightTiles = [];
     bombDetonation(id, top, bottom, left, right, hitTop, hitBottom, hitLeft, hitRight, bombIteration, upTiles, downTiles, leftTiles, rightTiles);
 }
+function clearTurnRed(tileArr) {
+    if (tileArr.length > 0) tileArr.forEach(location => document.getElementById(location).classList.remove('turn-red'));
+}
 function bombDetonation(id, top, bottom, left, right, hitTop, hitBottom, hitLeft, hitRight, bombIteration, upTiles, downTiles, leftTiles, rightTiles) {
     setTimeout(() => {
         bombIteration += 1;
-        if (upTiles.length > 0) upTiles.forEach(location => document.getElementById(location).classList.remove('turn-red'));
-        if (downTiles.length > 0) downTiles.forEach(location => document.getElementById(location).classList.remove('turn-red'));
-        if (leftTiles.length > 0) leftTiles.forEach(location => document.getElementById(location).classList.remove('turn-red'));
-        if (rightTiles.length > 0) rightTiles.forEach(location => document.getElementById(location).classList.remove('turn-red'));
+        clearTurnRed(upTiles);
+        clearTurnRed(downTiles);
+        clearTurnRed(leftTiles);
+        clearTurnRed(rightTiles);
         // find tiles in each direction
         // up
         upTiles = [];
@@ -629,11 +632,21 @@ function bombDetonation(id, top, bottom, left, right, hitTop, hitBottom, hitLeft
             if (hitTop) rightTiles = rightTiles.filter(value => value >= 0);
             if (hitBottom) rightTiles = rightTiles.filter(value => value < offset * offset);
         }
+
+
+        // *********************************
+
         // render tiles to be red
-        upTiles.forEach(location => document.getElementById(location).classList.add('turn-red'));
-        downTiles.forEach(location => document.getElementById(location).classList.add('turn-red'));
-        leftTiles.forEach(location => document.getElementById(location).classList.add('turn-red'));
-        rightTiles.forEach(location => document.getElementById(location).classList.add('turn-red'));
+        setTimeout(() => {
+            upTiles.forEach(location => document.getElementById(location).classList.add('turn-red'));
+            downTiles.forEach(location => document.getElementById(location).classList.add('turn-red'));
+            leftTiles.forEach(location => document.getElementById(location).classList.add('turn-red'));
+            rightTiles.forEach(location => document.getElementById(location).classList.add('turn-red'));
+        }, 2000);
+        
+        // *********************************
+
+
         // check and update hit-border conditions
         if (!hitTop) hitTop = top.some(location => location === upTiles[0]);
         if (!hitBottom) hitBottom = bottom.some(location => location === downTiles[0]);
